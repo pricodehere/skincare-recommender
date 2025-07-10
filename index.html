@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Skincare Recommender</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('https://i.pinimg.com/originals/f5/92/89/f59289fd7d3f8a0221e1667e5c70fffb.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.85); /* soft white card */
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #d63384;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #d63384;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    #result {
+      margin-top: 30px;
+      background: #fff0f6;
+      padding: 20px;
+      border-radius: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>✨ Find Your Skincare Match ✨</h1>
+
+    <form id="quiz">
+      <h2>1. How does your skin feel after washing your face?</h2>
+      <input type="radio" name="q1" value="dry"> Tight and dry<br>
+      <input type="radio" name="q1" value="normal"> Normal<br>
+      <input type="radio" name="q1" value="oily"> Shiny or oily<br>
+      <input type="radio" name="q1" value="sensitive"> Itchy or irritated<br><br>
+
+      <h2>2. What’s your biggest skin concern?</h2>
+      <input type="radio" name="q2" value="acne"> Acne or breakouts<br>
+      <input type="radio" name="q2" value="dull"> Dullness or dark spots<br>
+      <input type="radio" name="q2" value="redness"> Redness or sensitivity<br>
+      <input type="radio" name="q2" value="none"> None<br><br>
+
+      <h2>3. How often do you use skincare products?</h2>
+      <input type="radio" name="q3" value="daily"> Daily<br>
+      <input type="radio" name="q3" value="sometimes"> Sometimes<br>
+      <input type="radio" name="q3" value="rarely"> Rarely<br><br>
+
+      <h2>4. Do you wear sunscreen regularly?</h2>
+      <input type="radio" name="q4" value="yes"> Yes<br>
+      <input type="radio" name="q4" value="no"> No<br><br>
+
+      <button type="button" onclick="getResult()">Get Recommendation</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function getResult() {
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      const q3 = document.querySelector('input[name="q3"]:checked');
+      const q4 = document.querySelector('input[name="q4"]:checked');
+
+      if (!q1 || !q2 || !q3 || !q4) {
+        alert("Please answer all questions!");
+        return;
+      }
+
+      let skinType = q1.value;
+      let concern = q2.value;
+
+      let recommendation = "";
+
+      if (skinType === "dry") {
+        recommendation = "Try a cream-based moisturizer like Plum E-Luminence or Cetaphil Moisturizing Cream.";
+      } else if (skinType === "oily") {
+        recommendation = "Use a gel-based, oil-free moisturizer like Neutrogena Hydro Boost, and a salicylic acid face wash.";
+      } else if (skinType === "sensitive") {
+        recommendation = "Use fragrance-free products like CeraVe or Avene, and always patch-test new products.";
+      } else {
+        recommendation = "Maintain your routine with a balanced moisturizer and sunscreen like Dot & Key Barrier Repair Moisturizer.";
+      }
+
+      let addOn = "";
+      if (concern === "acne") {
+        addOn = " Add Minimalist 10% Niacinamide serum for oil control.";
+      } else if (concern === "dull") {
+        addOn = " Use Vitamin C serum like Plum or The Derma Co to brighten your skin.";
+      } else if (concern === "redness") {
+        addOn = " Try calming ingredients like Centella Asiatica or Green Tea.";
+      }
+
+      document.getElementById("result").innerHTML = `
+        <h2>🧴 Your Skincare Match</h2>
+        <p>${recommendation}</p>
+        <p><strong>${addOn}</strong></p>
+        <p style="font-style: italic; margin-top: 10px;">"Self-care is how you take your power back."</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
